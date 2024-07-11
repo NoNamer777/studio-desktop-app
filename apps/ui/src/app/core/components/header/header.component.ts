@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,5 +6,8 @@ import { Component } from '@angular/core';
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
     standalone: true,
+    imports: [CommonModule],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+    appVersion = window.studioDesktopApp.getAppVersion();
+}
