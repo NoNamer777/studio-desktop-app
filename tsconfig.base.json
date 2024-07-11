@@ -1,20 +1,37 @@
 {
+    "exclude": ["node_modules", "tmp"],
     "compileOnSave": false,
     "compilerOptions": {
-        "rootDir": ".",
-        "sourceMap": true,
+        "baseUrl": ".",
         "declaration": false,
-        "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
-        "target": "es2015",
-        "module": "esnext",
-        "lib": ["es2020", "dom"],
-        "skipLibCheck": true,
+        "lib": ["ES2022", "DOM"],
+        "module": "ES2022",
+        "moduleResolution": "Node",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "paths": {
+            "@woodwing/studio-desktop-app/data": ["libs/data/src/index.ts"]
+        },
+        "rootDir": ".",
         "skipDefaultLibCheck": true,
-        "baseUrl": ".",
-        "paths": {}
-    },
-    "exclude": ["node_modules", "tmp"]
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "strictPropertyInitialization": false,
+        "target": "ES2022",
+        "useUnknownInCatchVariables": true
+    }
 }
