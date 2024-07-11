@@ -18,7 +18,7 @@ export default class SquirrelEvents {
         join(SquirrelEvents.appRootFolder, 'app-' + environment.version, basename(process.execPath))
     );
 
-    static handleEvents(): boolean {
+    static handleEvents() {
         if (process.argv.length === 1 || process.platform !== 'win32') {
             return false;
         }
@@ -28,13 +28,11 @@ export default class SquirrelEvents {
             case '--squirrel-updated':
                 // Install desktop and start menu shortcuts
                 SquirrelEvents.update(['--createShortcut', SquirrelEvents.exeName]);
-
                 return true;
 
             case '--squirrel-uninstall':
                 // Remove desktop and start menu shortcuts
                 SquirrelEvents.update(['--removeShortcut', SquirrelEvents.exeName]);
-
                 return true;
 
             case '--squirrel-obsolete':
@@ -42,7 +40,7 @@ export default class SquirrelEvents {
                 return true;
 
             case '--squirrel-firstrun':
-                // Check if it the first run of the software
+                // Check if it is first run of the application
                 SquirrelEvents.isAppFirstRun = true;
                 return false;
         }
@@ -56,9 +54,11 @@ export default class SquirrelEvents {
 
     private static update(args: Array<string>) {
         try {
-            spawn(SquirrelEvents.updateExe, args, { detached: true }).on('close', () => setTimeout(app.quit, 1000));
+            spawn(SquirrelEvents.updateExe, args, { detached: true }).on('close', () =>
+                setTimeout(() => app.quit(), 1000)
+            );
         } catch (error) {
-            setTimeout(app.quit, 1000);
+            setTimeout(() => app.quit(), 1000);
         }
     }
 }

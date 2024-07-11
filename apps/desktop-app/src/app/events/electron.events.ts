@@ -3,23 +3,23 @@
  * between the frontend to the electron backend.
  */
 
+import { EventNames } from '@woodwing/studio-desktop-app/data';
 import { app, ipcMain } from 'electron';
 import { environment } from '../../environments/environment';
 
 export default class ElectronEvents {
-    static bootstrapElectronEvents(): Electron.IpcMain {
+    static bootstrapElectronEvents() {
         return ipcMain;
     }
 }
 
 // Retrieve app version
-ipcMain.handle('get-app-version', (event) => {
+ipcMain.handle(EventNames.GET_APP_VERSION, () => {
     console.log(`Fetching application version... [v${environment.version}]`);
-
     return environment.version;
 });
 
 // Handle App termination
-ipcMain.on('quit', (event, code) => {
+ipcMain.on('quit', (_event, code) => {
     app.exit(code);
 });

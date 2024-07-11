@@ -28,7 +28,7 @@ export default class UpdateEvents {
     }
 }
 
-autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDate) => {
+autoUpdater.on('update-downloaded', (_event, releaseNotes, releaseName, _releaseDate) => {
     const dialogOpts: MessageBoxOptions = {
         type: 'info' as const,
         buttons: ['Restart', 'Later'],

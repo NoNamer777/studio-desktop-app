@@ -1,6 +1,8 @@
+import { EventNames, StudioDesktopAppApi, StudioDesktopAppNamespace } from '@woodwing/studio-desktop-app/data';
 import { contextBridge, ipcRenderer } from 'electron';
 
-contextBridge.exposeInMainWorld('electron', {
-    getAppVersion: () => ipcRenderer.invoke('get-app-version'),
-    platform: process.platform,
-});
+const studioDesktopAppApi: StudioDesktopAppApi = {
+    getAppVersion: () => ipcRenderer.invoke(EventNames.GET_APP_VERSION),
+};
+
+contextBridge.exposeInMainWorld(StudioDesktopAppNamespace, studioDesktopAppApi);

@@ -1,4 +1,4 @@
-import { BrowserWindow, screen, shell } from 'electron';
+import { BrowserWindow, screen } from 'electron';
 import { join } from 'path';
 import { format } from 'url';
 import { environment } from '../environments/environment';
@@ -9,11 +9,11 @@ export default class App {
     // be closed automatically when the JavaScript object is garbage collected.
     static mainWindow: Electron.BrowserWindow;
     static application: Electron.App;
-    static BrowserWindow;
+    static BrowserWindow: typeof BrowserWindow;
 
     public static isDevelopmentMode() {
-        const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
-        const getFromEnvironment: boolean = parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
+        const isEnvironmentSet = 'ELECTRON_IS_DEV' in process.env;
+        const getFromEnvironment = parseInt(process.env['ELECTRON_IS_DEV'], 10) === 1;
 
         return isEnvironmentSet ? getFromEnvironment : !environment.production;
     }
@@ -24,20 +24,20 @@ export default class App {
         }
     }
 
-    private static onClose() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        App.mainWindow = null;
-    }
+    // private static onClose() {
+    //     // Dereference the window object, usually you would store windows
+    //     // in an array if your app supports multi windows, this is the time
+    //     // when you should delete the corresponding element.
+    //     App.mainWindow = null;
+    // }
 
-    private static onRedirect(event: any, url: string) {
-        if (url !== App.mainWindow.webContents.getURL()) {
-            // this is a normal external redirect, open it in a new browser window
-            event.preventDefault();
-            shell.openExternal(url);
-        }
-    }
+    // private static onRedirect(event: any, url: string) {
+    //     if (url !== App.mainWindow.webContents.getURL()) {
+    //         // this is a normal external redirect, open it in a new browser window
+    //         event.preventDefault();
+    //         shell.openExternal(url);
+    //     }
+    // }
 
     private static onReady() {
         // This method will be called when Electron has finished
@@ -50,7 +50,7 @@ export default class App {
     }
 
     private static onActivate() {
-        // On macOS it's common to re-create a window in the app when the
+        // On macOS, it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
         if (App.mainWindow === null) {
             App.onReady();
@@ -77,9 +77,7 @@ export default class App {
         App.mainWindow.center();
 
         // if main window is ready to show, close the splash window and show the main window
-        App.mainWindow.once('ready-to-show', () => {
-            App.mainWindow.show();
-        });
+        App.mainWindow.once('ready-to-show', () => App.mainWindow.show());
 
         // handle all external redirects in a new browser window
         // App.mainWindow.webContents.on('will-navigate', App.onRedirect);
@@ -120,8 +118,8 @@ export default class App {
         App.BrowserWindow = browserWindow;
         App.application = app;
 
-        App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
-        App.application.on('ready', App.onReady); // App is ready to load data
-        App.application.on('activate', App.onActivate); // App is activated
+        App.application.on('window-all-closed', () => App.onWindowAllClosed()); // Quit when all windows are closed.
+        App.application.on('ready', () => App.onReady()); // App is ready to load data
+        App.application.on('activate', () => App.onActivate()); // App is activated
     }
 }
