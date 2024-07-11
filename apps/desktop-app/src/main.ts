@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import App from './app/app';
 import ElectronEvents from './app/events/electron.events';
 import SquirrelEvents from './app/events/squirrel.events';
+import { FileHandlingService } from './app/file-handling/file-handling.service';
 
 export default class Main {
     static initialize() {
@@ -11,8 +12,10 @@ export default class Main {
         }
     }
 
-    static bootstrapApp() {
+    static async bootstrapApp() {
         App.main(app, BrowserWindow);
+
+        await FileHandlingService.initialize();
     }
 
     static bootstrapAppEvents() {
