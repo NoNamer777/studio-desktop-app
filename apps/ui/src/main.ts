@@ -1,7 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { appConfig, RootComponent } from './app';
 
-bootstrapApplication(AppComponent, appConfig).catch((err) =>
-  console.error(err)
-);
+async function main() {
+    try {
+        await bootstrapApplication(RootComponent, appConfig);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+main();
