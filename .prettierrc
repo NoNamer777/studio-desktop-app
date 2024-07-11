@@ -1,20 +1,20 @@
 {
-      "arrowParens": "always",
-      "endOfLine": "lf",
-      "overrides": [
-            {
-                  "files": "*.html",
-                  "options": {
-                        "parser": "angular"
-                  }
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "overrides": [
+        {
+            "files": "*.html",
+            "options": {
+                "parser": "angular"
             }
-      ],
-      "plugins": ["prettier-plugin-organize-imports"],
-      "printWidth": 120,
-      "quoteProps": "consistent",
-      "semi": true,
-      "singleQuote": true,
-      "tabWidth": 4,
-      "trailingComma": "es5",
-      "useTabs": false
+        }
+    ],
+    "plugins": ["prettier-plugin-organize-imports"],
+    "printWidth": 120,
+    "quoteProps": "consistent",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5",
+    "useTabs": false
 }

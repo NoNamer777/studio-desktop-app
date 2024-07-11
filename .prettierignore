@@ -3,3 +3,6 @@
 /coverage
 /.nx/cache
 .angular
+
+package-lock.json
+package.json
