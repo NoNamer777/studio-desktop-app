@@ -50,6 +50,8 @@
             "style": "scss",
             "unitTestRunner": "jest"
         },
+        "@nx/angular:component": {
+            "style": "scss"
         }
     },
     "defaultProject": "desktop-app"
