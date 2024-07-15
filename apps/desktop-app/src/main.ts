@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import App from './app/app';
+import { ConfigService } from './app/config/config.service';
 import ElectronEvents from './app/events/electron.events';
 import SquirrelEvents from './app/events/squirrel.events';
 import { FileHandlingService } from './app/file-handling/file-handling.service';
@@ -15,6 +16,7 @@ export default class Main {
     static async bootstrapApp() {
         App.main(app, BrowserWindow);
 
+        await ConfigService.readConfig();
         await FileHandlingService.initialize();
     }
 
