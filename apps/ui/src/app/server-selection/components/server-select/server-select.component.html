@@ -1,0 +1,15 @@
+<div class="my-3">
+    <label for="server-select">Select a Server</label>
+    <select
+        class="form-select"
+        id="server-select"
+        #select
+        [value]="value?.name"
+        [disabled]="disabled"
+        (change)="onChange(select.value)"
+    >
+        @for (option of options; track $index) {
+            <option [value]="option.name">{{ option.label }}</option>
+        }
+    </select>
+</div>

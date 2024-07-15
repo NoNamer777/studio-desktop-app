@@ -2,7 +2,9 @@
 <main class="container-fluid bg-body">
     <article>
         <section>
-            <p>Application works!</p>
+            <form [formGroup]="form">
+                <app-server-selection formControlName="selectedServer" />
+            </form>
         </section>
     </article>
 </main>
