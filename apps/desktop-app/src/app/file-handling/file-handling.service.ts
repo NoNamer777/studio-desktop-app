@@ -16,6 +16,12 @@ export class FileHandlingService {
         console.log('Reading file at path:', path);
         return await fs.promises.readFile(`${this.appRootFolder}/${path}`);
     }
+
+    public static async verifyServerFolderExists(serverName: string) {
+        const serverFolderPath = `${FileHandlingService.appRootFolder}/servers/${serverName}`;
+
+        if (await FileHandlingService.folderExists(serverFolderPath)) return;
+        await FileHandlingService.createFolder(serverFolderPath);
     }
 
     public static async removeFile(path: string) {
