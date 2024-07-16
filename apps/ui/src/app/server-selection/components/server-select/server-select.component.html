@@ -1,16 +1,19 @@
 <div class="my-3">
     <label for="server-select">Select a Server</label>
-    <select
-        class="form-select"
-        id="server-select"
-        #select
-        [value]="value?.name"
-        [disabled]="disabled"
-        (change)="onChange(select.value)"
-    >
-        <option [value]="undefined">Select an option...</option>
-        @for (option of options; track $index) {
-            <option [value]="option.name">{{ option.label }}</option>
-        }
-    </select>
+    <div class="d-flex gap-3">
+        <select
+            class="form-select"
+            id="server-select"
+            #select
+            [value]="value?.name"
+            [disabled]="disabled"
+            (change)="onChange(select.value)"
+        >
+            <option [value]="undefined">Select an option...</option>
+            @for (option of options; track $index) {
+                <option [value]="option.name">{{ option.label }}</option>
+            }
+        </select>
+        <app-download-button class="flex-grow-0 flex-shrink-0" />
+    </div>
 </div>

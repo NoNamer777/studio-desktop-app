@@ -11,4 +11,8 @@ export class ServerSelectService {
     updateSelectedServer(serverConfig: ServerConfig) {
         return from(window.studioDesktopApp.updateSelectedServer(serverConfig));
     }
+
+    downloadFileFromServer() {
+        return from(window.studioDesktopApp.downloadFile());
+    }
 }

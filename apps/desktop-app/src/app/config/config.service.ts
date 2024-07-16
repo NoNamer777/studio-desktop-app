@@ -13,13 +13,13 @@ export class ConfigService {
 
             ConfigService.config = this.validatedFileContents(parsedFileContents);
         } catch (_error) {
-            await FileHandlingService.writeFile('config.json', JSON.stringify(defaultConfig, null, 4));
+            await FileHandlingService.writeFileString('config.json', JSON.stringify(defaultConfig, null, 4));
         }
     }
 
     public static async saveConfig() {
         const fileContents = JSON.stringify(ConfigService.config, null, 4);
-        await FileHandlingService.writeFile('config.json', fileContents);
+        await FileHandlingService.writeFileString('config.json', fileContents);
     }
 
     private static validatedFileContents = (parsedFileContents: Record<string, unknown>): DesktopAppConfig =>

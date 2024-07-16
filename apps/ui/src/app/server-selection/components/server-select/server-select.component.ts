@@ -14,6 +14,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ServerConfig } from '@woodwing/studio-desktop-app/data';
+import { DownloadButtonComponent } from '../../../file-download';
 import { ServerSelectService } from '../../services';
 
 const serverSelectValueAccessorProvider: ExistingProvider = {
@@ -28,7 +29,7 @@ const serverSelectValueAccessorProvider: ExistingProvider = {
     styleUrl: './server-select.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, DownloadButtonComponent],
     providers: [serverSelectValueAccessorProvider],
 })
 export class ServerSelectComponent implements OnInit, ControlValueAccessor {

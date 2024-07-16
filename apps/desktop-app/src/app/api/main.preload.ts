@@ -11,6 +11,7 @@ const studioDesktopAppApi: StudioDesktopAppApi = {
     getSelectedServer: () => ipcRenderer.invoke(EventNames.GET_SELECTED_SERVER),
     updateSelectedServer: (serverConfig: ServerConfig) =>
         ipcRenderer.invoke(EventNames.UPDATE_SELECTED_SERVER, serverConfig),
+    downloadFile: () => ipcRenderer.invoke(EventNames.DOWNLOAD_FILE),
 };
 
 contextBridge.exposeInMainWorld(StudioDesktopAppNamespace, studioDesktopAppApi);

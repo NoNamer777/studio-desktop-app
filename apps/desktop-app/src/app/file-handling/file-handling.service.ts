@@ -7,9 +7,24 @@ export class FileHandlingService {
         await this.setupAppRootFolder();
     }
 
-    public static async writeFile(path: string, contents: string) {
+    public static async writeFileString(path: string, contents: string) {
         console.log('Writing file at path:', path);
-        await fs.promises.writeFile(`${this.appRootFolder}/${path}`, contents);
+        path = `${this.appRootFolder}/${path}`;
+
+        if (!(await FileHandlingService.folderExists(path.substring(0, path.lastIndexOf('/'))))) {
+            await FileHandlingService.createFolder(path.substring(0, path.lastIndexOf('/')));
+        }
+        await fs.promises.writeFile(path, contents);
+    }
+
+    public static async writeFileBuffer(path: string, buffer: ArrayBuffer) {
+        console.log('Writing file at path:', path);
+        path = `${this.appRootFolder}/${path}`;
+
+        if (!(await FileHandlingService.folderExists(path.substring(0, path.lastIndexOf('/'))))) {
+            await FileHandlingService.createFolder(path.substring(0, path.lastIndexOf('/')));
+        }
+        await fs.promises.writeFile(path, Buffer.from(buffer));
     }
 
     public static async readFile(path: string) {

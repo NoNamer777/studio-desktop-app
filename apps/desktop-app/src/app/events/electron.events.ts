@@ -7,6 +7,7 @@ import { EventNames, ServerConfig } from '@woodwing/studio-desktop-app/data';
 import { app, ipcMain } from 'electron';
 import { environment } from '../../environments/environment';
 import { ConfigService } from '../config/config.service';
+import { FileDownloadService } from '../file-handling/file-download.service';
 import { ServerSelectionService } from '../server-selection/server-selection.service';
 
 export default class ElectronEvents {
@@ -24,6 +25,8 @@ ipcMain.handle(
     EventNames.UPDATE_SELECTED_SERVER,
     async (_event, serverConfig: ServerConfig) => await ServerSelectionService.updateSelectedServer(serverConfig)
 );
+
+ipcMain.handle(EventNames.DOWNLOAD_FILE, async () => await FileDownloadService.downloadFile());
 
 // Handle App termination
 ipcMain.on('quit', (_event, code) => app.exit(code));

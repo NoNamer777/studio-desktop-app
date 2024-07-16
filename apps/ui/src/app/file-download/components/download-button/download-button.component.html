@@ -1,0 +1,9 @@
+<button
+    type="button"
+    class="btn btn-primary d-flex align-items-center gap-2"
+    [disabled]="(hasServerSelected$ | async) === false"
+    (click)="onDownloadFile()"
+>
+    Download file
+    <span class="spinner-border spinner-border-sm" [ngClass]="downloading$ | async"></span>
+</button>
