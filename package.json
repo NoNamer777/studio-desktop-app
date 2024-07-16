@@ -6,6 +6,7 @@
         "postinstall": "electron-builder install-app-deps",
         "nx": "npx nx"
     },
+    "author": "WoodWing",
     "private": true,
     "dependencies": {
         "@angular/animations": "~17.3.0",
