@@ -8,6 +8,7 @@
         [disabled]="disabled"
         (change)="onChange(select.value)"
     >
+        <option [value]="undefined">Select an option...</option>
         @for (option of options; track $index) {
             <option [value]="option.name">{{ option.label }}</option>
         }
