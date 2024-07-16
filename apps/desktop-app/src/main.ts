@@ -10,7 +10,7 @@ import { ServerSelectionService } from './app/server-selection/server-selection.
 export default class Main {
     static initialize() {
         if (SquirrelEvents.handleEvents()) {
-            // squirrel event handled (except first run event) and app will exit in 1000ms, so don't do anything else
+            // Squirrel event handled (except first run event) and app will exit in 1000ms, so don't do anything else
             app.quit();
         }
     }

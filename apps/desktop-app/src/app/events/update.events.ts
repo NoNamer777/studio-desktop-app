@@ -4,7 +4,7 @@ import App from '../app';
 import { updateServerUrl } from '../constants';
 
 export default class UpdateEvents {
-    // initialize auto update service - most be invoked only in production
+    // Initialize auto update service - most be invoked only in production
     static initAutoUpdateService() {
         const platform_arch = platform() === 'win32' ? platform() : platform() + '_' + arch();
         const version = app.getVersion();

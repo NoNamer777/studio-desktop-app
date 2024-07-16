@@ -1,7 +1,3 @@
-# shared-back-end
+# Shared Back-end
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test shared-back-end` to execute the unit tests via [Jest](https://jestjs.io).
+This library hosts shared controllers, configurations, and modules for the different mock servers. Not important for the desktop-app itself.

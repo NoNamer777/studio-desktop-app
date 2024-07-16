@@ -1,16 +1,15 @@
-/**
- * This module is responsible on handling all the setup events that is submitted by squirrel.
- */
-
 import { spawn } from 'child_process';
 import { app } from 'electron';
 import { basename, join, resolve } from 'path';
 import { environment } from '../../environments/environment';
 
+/**
+ * This module is responsible on handling all the setup events that is submitted by squirrel.
+ */
 export default class SquirrelEvents {
     private static isAppFirstRun = false;
 
-    // app paths
+    // App paths
     private static appFolder = resolve(process.execPath, '..');
     private static appRootFolder = resolve(SquirrelEvents.appFolder, '..');
     private static updateExe = resolve(join(SquirrelEvents.appRootFolder, 'Update.exe'));

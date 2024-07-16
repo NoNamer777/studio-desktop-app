@@ -1,7 +1,3 @@
-# data
+# @woodwing/studio-desktop-app/data
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test data` to execute the unit tests via [Jest](https://jestjs.io).
+This pure TypeScript library holds data models and constants that are shared between the Electron and Angular apps.
