@@ -1,0 +1,32 @@
+{
+    "name": "studio-dev",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/studio-dev/src",
+    "projectType": "application",
+    "tags": [],
+    "targets": {
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "studio-dev:build",
+                "inspect": false
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "studio-dev:build:development"
+                },
+                "production": {
+                    "buildTarget": "studio-dev:build:production"
+                }
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/studio-dev/jest.config.ts"
+            }
+        }
+    }
+}

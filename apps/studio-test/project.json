@@ -1,0 +1,32 @@
+{
+    "name": "studio-test",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/studio-test/src",
+    "projectType": "application",
+    "tags": [],
+    "targets": {
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "studio-test:build",
+                "inspect": false
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "studio-test:build:development"
+                },
+                "production": {
+                    "buildTarget": "studio-test:build:production"
+                }
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/studio-test/jest.config.ts"
+            }
+        }
+    }
+}

@@ -21,6 +21,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "paths": {
+            "@studio-desktop-app/shared-back-end": ["libs/shared-back-end/src/index.ts"],
             "@woodwing/studio-desktop-app/data": ["libs/data/src/index.ts"]
         },
         "rootDir": ".",
