@@ -1,14 +1,16 @@
 import * as fs from 'node:fs';
 import { ConfigService } from '../config/config.service';
+import { LoggerService } from '../logging/logger.service';
 
 export class FileHandlingService {
+    private static readonly logger = new LoggerService(FileHandlingService.name);
+
     public static async initialize() {
-        console.log('initializing file system');
+        await FileHandlingService.logger.log('Initializing');
         await this.setupAppRootFolder();
     }
 
     public static async writeFileString(path: string, contents: string) {
-        console.log('Writing file at path:', path);
         path = `${this.appRootFolder}/${path}`;
 
         if (!(await FileHandlingService.folderExists(path.substring(0, path.lastIndexOf('/'))))) {
@@ -17,8 +19,16 @@ export class FileHandlingService {
         await fs.promises.writeFile(path, contents);
     }
 
+    public static async appendFileString(path: string, contents: string) {
+        path = `${this.appRootFolder}/${path}`;
+
+        if (!(await FileHandlingService.folderExists(path.substring(0, path.lastIndexOf('/'))))) {
+            await FileHandlingService.createFolder(path.substring(0, path.lastIndexOf('/')));
+        }
+        await fs.promises.appendFile(path, contents);
+    }
+
     public static async writeFileBuffer(path: string, buffer: ArrayBuffer) {
-        console.log('Writing file at path:', path);
         path = `${this.appRootFolder}/${path}`;
 
         if (!(await FileHandlingService.folderExists(path.substring(0, path.lastIndexOf('/'))))) {
@@ -28,7 +38,6 @@ export class FileHandlingService {
     }
 
     public static async readFile(path: string) {
-        console.log('Reading file at path:', path);
         return await fs.promises.readFile(`${this.appRootFolder}/${path}`);
     }
 
@@ -40,7 +49,6 @@ export class FileHandlingService {
     }
 
     public static async removeFile(path: string) {
-        console.log('Removing file at path', path);
         return await fs.promises.rm(`${this.appRootFolder}/${path}`);
     }
 
@@ -50,8 +58,6 @@ export class FileHandlingService {
 
     private static async setupAppRootFolder() {
         if (await FileHandlingService.folderExists(FileHandlingService.appRootFolder)) return;
-        console.log('Creating app root folder');
-
         await FileHandlingService.createFolder(FileHandlingService.appRootFolder);
     }
 

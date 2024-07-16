@@ -4,6 +4,7 @@ import { ConfigService } from './app/config/config.service';
 import ElectronEvents from './app/events/electron.events';
 import SquirrelEvents from './app/events/squirrel.events';
 import { FileHandlingService } from './app/file-handling/file-handling.service';
+import { FileLoggerService } from './app/logging/file-logger.service';
 import { ServerSelectionService } from './app/server-selection/server-selection.service';
 
 export default class Main {
@@ -19,6 +20,7 @@ export default class Main {
 
         await ConfigService.readConfig();
         await FileHandlingService.initialize();
+        await FileLoggerService.initialize();
         await ServerSelectionService.initialize();
     }
 

@@ -3,6 +3,7 @@ import { join } from 'path';
 import { format } from 'url';
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
+import { FileLoggerService } from './logging/file-logger.service';
 
 export default class App {
     // Keep a global reference of the window object, if you don't, the window will
@@ -18,8 +19,9 @@ export default class App {
         return isEnvironmentSet ? getFromEnvironment : !environment.production;
     }
 
-    private static onWindowAllClosed() {
+    private static async onWindowAllClosed() {
         if (process.platform !== 'darwin') {
+            await FileLoggerService.terminate();
             App.application.quit();
         }
     }
@@ -39,13 +41,13 @@ export default class App {
     //     }
     // }
 
-    private static onReady() {
+    private static async onReady() {
         // This method will be called when Electron has finished
         // initialization and is ready to create browser windows.
         // Some APIs can only be used after this event occurs.
         if (rendererAppName) {
             App.initMainWindow();
-            App.loadMainWindow();
+            await App.loadMainWindow();
         }
     }
 
@@ -94,12 +96,12 @@ export default class App {
         });
     }
 
-    private static loadMainWindow() {
+    private static async loadMainWindow() {
         // load the index.html of the app.
         if (!App.application.isPackaged) {
-            App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
+            await App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
         } else {
-            App.mainWindow.loadURL(
+            await App.mainWindow.loadURL(
                 format({
                     pathname: join(__dirname, '../ui/browser/index.html'),
                     protocol: 'file:',
@@ -118,8 +120,8 @@ export default class App {
         App.BrowserWindow = browserWindow;
         App.application = app;
 
-        App.application.on('window-all-closed', () => App.onWindowAllClosed()); // Quit when all windows are closed.
-        App.application.on('ready', () => App.onReady()); // App is ready to load data
+        App.application.on('window-all-closed', async () => await App.onWindowAllClosed()); // Quit when all windows are closed.
+        App.application.on('ready', async () => await App.onReady()); // App is ready to load data
         App.application.on('activate', () => App.onActivate()); // App is activated
     }
 }
