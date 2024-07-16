@@ -1,3 +1,30 @@
 {
-    "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json"
+    "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+    "appId": "com.woodwing.studio-desktop-app",
+    "icon": "apps/desktop-app/src/assets/icons/woodwing.png",
+    "artifactName": "Studio Desktop App ${version}.${ext}",
+    "productName": "Studio Desktop App",
+    "copyright": "Copyright © 2024 ${author}",
+    "mac": {
+        "target": ["dmg", "zip"],
+        "category": "public.app-category.productivity",
+        "extendInfo": {
+            "CFBundlePackageType": "APPL",
+            "LSUIElement": "1",
+            "NSHighResolutionCapable": "true"
+        }
+    },
+    "win": {
+        "target": "nsis"
+    },
+    "nsis": {
+        "perMachine": false,
+        "oneClick": false,
+        "allowElevation": true,
+        "allowToChangeInstallationDirectory": true,
+        "runAfterFinish": true,
+        "createDesktopShortcut": "always",
+        "createStartMenuShortcut": true,
+        "menuCategory": false
+    }
 }
