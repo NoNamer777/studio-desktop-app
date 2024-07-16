@@ -7,12 +7,14 @@ export class ConfigService {
     public static getConfig = () => ConfigService.config;
 
     public static async readConfig() {
-        const fileBuffer = await FileHandlingService.readFile('config.json');
+        try {
+            const fileBuffer = await FileHandlingService.readFile('config.json');
+            const parsedFileContents: Record<string, unknown> = JSON.parse(fileBuffer.toString());
 
-        if (!fileBuffer) return;
-        const parsedFileContents: Record<string, unknown> = JSON.parse(fileBuffer.toString());
-
-        ConfigService.config = this.validatedFileContents(parsedFileContents);
+            ConfigService.config = this.validatedFileContents(parsedFileContents);
+        } catch (_error) {
+            await FileHandlingService.writeFile('config.json', JSON.stringify(defaultConfig, null, 4));
+        }
     }
 
     public static async saveConfig() {
