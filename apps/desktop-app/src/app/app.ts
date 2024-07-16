@@ -101,7 +101,7 @@ export default class App {
         } else {
             App.mainWindow.loadURL(
                 format({
-                    pathname: join(__dirname, '../ui/index.html'),
+                    pathname: join(__dirname, '../ui/browser/index.html'),
                     protocol: 'file:',
                     slashes: true,
                 })
