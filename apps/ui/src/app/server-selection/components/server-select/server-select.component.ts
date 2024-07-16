@@ -1,5 +1,6 @@
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     DestroyRef,
     EventEmitter,
@@ -7,6 +8,7 @@ import {
     forwardRef,
     inject,
     Input,
+    OnInit,
     Output,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -29,7 +31,7 @@ const serverSelectValueAccessorProvider: ExistingProvider = {
     imports: [FormsModule],
     providers: [serverSelectValueAccessorProvider],
 })
-export class ServerSelectComponent implements ControlValueAccessor {
+export class ServerSelectComponent implements OnInit, ControlValueAccessor {
     @Input() public value: ServerConfig;
 
     @Input() public disabled = false;
@@ -48,6 +50,20 @@ export class ServerSelectComponent implements ControlValueAccessor {
 
     private readonly serverSelectService = inject(ServerSelectService);
     private readonly destroyRef = inject(DestroyRef);
+    private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+    public ngOnInit() {
+        this.serverSelectService
+            .getSelectedServer()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (serverName) => {
+                    if (!serverName) return;
+                    this.value = this.options.find((option) => option.name === serverName);
+                    this.changeDetectorRef.markForCheck();
+                },
+            });
+    }
 
     public writeValue(serverConfig: ServerConfig) {
         this.value = serverConfig;

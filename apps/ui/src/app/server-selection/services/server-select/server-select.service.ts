@@ -4,6 +4,10 @@ import { from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ServerSelectService {
+    getSelectedServer() {
+        return from(window.studioDesktopApp.getSelectedServer());
+    }
+
     updateSelectedServer(serverConfig: ServerConfig) {
         return from(window.studioDesktopApp.updateSelectedServer(serverConfig));
     }

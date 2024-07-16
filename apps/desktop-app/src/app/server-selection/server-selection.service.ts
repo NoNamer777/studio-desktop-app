@@ -5,7 +5,7 @@ import { ServerConfigSchema } from '../validation/server-config';
 
 export class ServerSelectionService {
     public static async initialize() {
-        const serverName = ConfigService.getConfig().selectedServer.name;
+        const serverName = ConfigService.getConfig()?.selectedServer?.name;
 
         if (!serverName) return;
         await FileHandlingService.verifyServerFolderExists(serverName);
@@ -14,8 +14,6 @@ export class ServerSelectionService {
     public static async updateSelectedServer(serverConfig: ServerConfig) {
         await ServerSelectionService.updateConfig(serverConfig);
         await ServerSelectionService.verifyServerFolderExists(ConfigService.getConfig().selectedServer.name);
-
-        // TODO: Attempt to establish connection with the server
     }
 
     private static async updateConfig(serverConfig: ServerConfig) {
