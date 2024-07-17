@@ -64,7 +64,7 @@ Files for the desktop-app are by default stored in the following locations, depe
 
 The configuration file will be stored in the root of the application files folder in JSON format.
 
-Within the application folder, you'll find a `logs/` folder where logs can be found were used for debugging purposes. 
+Within the application folder, you'll find a `logs/` folder where logs can be found which were used for debugging purposes. 
 
 For each available server, a sub-folder will be created. This means that in this prototype, files that are downloaded from the servers a seperated in folders on a per-server basis, which would look like the following:
 
