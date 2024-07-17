@@ -90,7 +90,13 @@ So to answer the question asked earlier: "Where is my file that I downloaded?", 
 
 ## Packaging
 
-To create an executable for the desktop-app you can run the following command:
+To create an executable for the desktop-app you need to create code bundles of the desktop-app and the ui applications first. This can be done be running the following command:
+
+```bash
+npx nx run-many -t build
+```
+
+After that you can run the following command to create an executable of the desktop-app:
 
 ```bash
 npx nx make desktop-app
