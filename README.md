@@ -6,7 +6,7 @@ It used [Angular](https://angular.dev/) v17.3 for the UI and [Electron](https://
 
 In order to quickly get some UI going, [Bootstrap](https://getbootstrap.com/) v5.3 was used, but that should be replaced using our own UI library.
 
-Besides the Angular and Electron applications, a couple [NestJs](https://nestjs.com/) are used to mock back-end servers to download files from. Each of these mock servers expose the root route where a `hello` text response is returned. They also expose a static file, which is downloaded by the Electron app upon interaction of the User.
+Besides the Angular and Electron applications, a couple [NestJs](https://nestjs.com/) applications are used to mock back-end servers to download files from. Each of these mock servers expose the root route where a `hello` text response is returned. They also expose a static file, which is downloaded by the Electron app upon interaction of the User.
 
 ## Nx-electron
 
