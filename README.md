@@ -66,7 +66,7 @@ The configuration file will be stored in the root of the application files folde
 
 Within the application folder, you'll find a `logs/` folder where logs can be found which were used for debugging purposes. 
 
-For each available server, a sub-folder will be created. This means that in this prototype, files that are downloaded from the servers a seperated in folders on a per-server basis, which would look like the following:
+For each available server, a sub-folder will be created. This means that in this prototype, files that are downloaded from the servers into a seperate folders on a per-server basis, which would result in the following directoty structure for this application:
 
 ```
 - studio-desktop-app/
@@ -86,7 +86,7 @@ For each available server, a sub-folder will be created. This means that in this
               - file.jpeg
 ```
 
-So to answer the question asked earlier: "Where is my file that I downloaded?" it is located in the server folder which corresponds to the server that you've selected.
+So to answer the question asked earlier: "Where is my file that I downloaded?", it is located in the server folder which corresponds to the server that you've selected.
 
 ## Packaging
 
