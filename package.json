@@ -2,6 +2,7 @@
     "name": "@studio-desktop-app/source",
     "version": "0.0.0",
     "license": "MIT",
+    "description": "Directly open files for editing with WoodWing Studio",
     "scripts": {
         "postinstall": "electron-builder install-app-deps",
         "nx": "npx nx"
