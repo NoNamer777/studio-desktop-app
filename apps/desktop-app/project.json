@@ -6,6 +6,7 @@
     "targets": {
         "build": {
             "executor": "nx-electron:build",
+            "dependsOn": ["^build"],
             "outputs": ["{options.outputPath}"],
             "options": {
                 "assets": ["apps/desktop-app/src/assets"],
@@ -37,6 +38,13 @@
         },
         "package": {
             "executor": "nx-electron:package",
+            "dependsOn": [
+                {
+                    "projects": ["desktop-app", "ui"],
+                    "target": "build",
+                    "params": "ignore"
+                }
+            ],
             "options": {
                 "frontendProject": "ui",
                 "makerOptionsPath": "apps/desktop-app/electron-builder.json",
@@ -59,6 +67,13 @@
         },
         "make": {
             "executor": "nx-electron:make",
+            "dependsOn": [
+                {
+                    "projects": ["desktop-app", "ui"],
+                    "target": "build",
+                    "params": "ignore"
+                }
+            ],
             "options": {
                 "frontendProject": "ui",
                 "makerOptionsPath": "apps/desktop-app/electron-builder.json",
