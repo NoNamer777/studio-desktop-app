@@ -37,12 +37,17 @@ jobs:
         runs-on: ubuntu-latest
         needs: build
         steps:
-            - name: Install Wine
+            - name: Install Wine 6
               run: |
                   sudo dpkg --add-architecture i386
-                  sudo add-apt-repository ppa:ubuntu-wine/ppa
-                  sudo apt-get update
-                  sudo apt-get install wine1.8
+                  sudo apt update
+
+                  wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+
+                  sudo apt install software-properties-common
+                  sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
+
+                  sudo apt install --install-recommends winehq-stable
 
             - name: Checkout repository
               uses: actions/checkout@v4
