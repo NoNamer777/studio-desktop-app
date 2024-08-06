@@ -6,7 +6,7 @@ It used [Angular](https://angular.dev/) v17.3 for the UI and [Electron](https://
 
 In order to quickly get some UI going, [Bootstrap](https://getbootstrap.com/) v5.3 was used, but that should be replaced using our own UI library.
 
-Besides the Angular and Electron applications, a couple [NestJs](https://nestjs.com/) are used to mock back-end servers to download files from. Each of these mock servers expose the root route where a `hello` text response is returned. They also expose a static file, which is downloaded by the Electron app upon interaction of the User.
+Besides the Angular and Electron applications, a couple [NestJs](https://nestjs.com/) applications are used to mock back-end servers to download files from. Each of these mock servers expose the root route where a `hello` text response is returned. They also expose a static file, which is downloaded by the Electron app upon interaction of the User.
 
 ## Nx-electron
 
@@ -64,9 +64,9 @@ Files for the desktop-app are by default stored in the following locations, depe
 
 The configuration file will be stored in the root of the application files folder in JSON format.
 
-Within the application folder, you'll find a `logs/` folder where logs can be found were used for debugging purposes. 
+Within the application folder, you'll find a `logs/` folder where logs can be found which were used for debugging purposes. 
 
-For each available server, a sub-folder will be created. This means that in this prototype, files that are downloaded from the servers a seperated in folders on a per-server basis, which would look like the following:
+For each available server, a sub-folder will be created. This means that in this prototype, files that are downloaded from the servers into a seperate folders on a per-server basis, which would result in the following directoty structure for this application:
 
 ```
 - studio-desktop-app/
@@ -86,11 +86,17 @@ For each available server, a sub-folder will be created. This means that in this
               - file.jpeg
 ```
 
-So to answer the question asked earlier: "Where is my file that I downloaded?" it is located in the server folder which corresponds to the server that you've selected.
+So to answer the question asked earlier: "Where is my file that I downloaded?", it is located in the server folder which corresponds to the server that you've selected.
 
 ## Packaging
 
-To create an executable for the desktop-app you can run the following command:
+To create an executable for the desktop-app you need to create code bundles of the desktop-app and the ui applications first. This can be done be running the following command:
+
+```bash
+npx nx run-many -t build
+```
+
+After that you can run the following command to create an executable of the desktop-app:
 
 ```bash
 npx nx make desktop-app
