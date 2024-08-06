@@ -42,8 +42,19 @@
                 "makerOptionsPath": "apps/desktop-app/electron-builder.json",
                 "name": "desktop-app",
                 "outputPath": "dist/packages",
+                "platform": ["windows", "mac"],
                 "prepackageOnly": true,
                 "sourcePath": "dist/apps"
+            },
+            "configurations": {
+                "windows": {
+                    "outputPath": "dist/packages/windows",
+                    "platform": "windows"
+                },
+                "mac": {
+                    "outputPath": "dist/packages/mac",
+                    "platform": "mac"
+                }
             }
         },
         "make": {
@@ -52,8 +63,19 @@
                 "frontendProject": "ui",
                 "makerOptionsPath": "apps/desktop-app/electron-builder.json",
                 "name": "desktop-app",
+                "outputPath": "dist/executables",
                 "platform": ["windows", "mac"],
                 "sourcePath": "dist/apps"
+            },
+            "configurations": {
+                "windows": {
+                    "outputPath": "dist/executables/windows",
+                    "platform": "windows"
+                },
+                "mac": {
+                    "outputPath": "dist/executables/mac",
+                    "platform": "mac"
+                }
             }
         },
         "lint": {
