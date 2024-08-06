@@ -33,7 +33,7 @@ jobs:
               run: npx nx run-many -t test
 
             - name: Upload code bundles
-              uses: actions/upload-artifacts@v4
+              uses: actions/upload-artifact@v4
               with:
                   name: code-bundles
                   retention-days: 1
@@ -60,7 +60,7 @@ jobs:
               run: npm ci
 
             - name: Download code bundles
-              uses: actions/download-artifacts@v4
+              uses: actions/download-artifact@v4
               with:
                   name: code-bundles
                   path: |
@@ -95,7 +95,7 @@ jobs:
               run: npm ci
 
             - name: Download code bundles
-              uses: actions/download-artifacts@v4
+              uses: actions/download-artifact@v4
               with:
                   name: code-bundles
                   path: |
