@@ -70,7 +70,7 @@ jobs:
               with:
                   name: windows-installer
                   path: |
-                      dist/windows/*
+                      dist/executables/windows/*
 
     create-mac-installer:
         name: Create MacOS installer
@@ -98,4 +98,4 @@ jobs:
               with:
                   name: mac-installer
                   path: |
-                      dist/mac/*
+                      dist/executables/mac/*
