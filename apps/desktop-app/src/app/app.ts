@@ -1,16 +1,16 @@
-import { BrowserWindow, WebContentsWillNavigateEventParams, screen } from 'electron';
+import { BrowserWindow, App as ElectronApp, WebContentsWillNavigateEventParams, screen, shell } from 'electron';
 import { join } from 'path';
 import { format } from 'url';
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
-import { FileLoggerService } from './logging/file-logger.service';
-import shell = Electron.shell;
+import FileLoggerService from './logging/file-logger.service';
+import { isRunningOnApple } from './utils/platform';
 
 export default class App {
     // Keep a global reference of the window object, if you don't, the window will
     // be closed automatically when the JavaScript object is garbage collected.
-    static mainWindow: Electron.BrowserWindow;
-    static application: Electron.App;
+    static mainWindow: BrowserWindow;
+    static application: ElectronApp;
     static BrowserWindow: typeof BrowserWindow;
 
     public static isDevelopmentMode() {
@@ -21,47 +21,43 @@ export default class App {
     }
 
     private static async onWindowAllClosed() {
-        if (process.platform !== 'darwin') {
+        if (isRunningOnApple()) {
             await FileLoggerService.terminate();
             App.application.quit();
         }
     }
 
+    // This is a normal external redirect, open it in a new browser window
     private static async onRedirect(event: Electron.Event<WebContentsWillNavigateEventParams>, url: string) {
-        if (url !== App.mainWindow.webContents.getURL()) {
-            // This is a normal external redirect, open it in a new browser window
-            event.preventDefault();
-            await shell.openExternal(url);
-        }
+        if (url === App.mainWindow.webContents.getURL()) return;
+        event.preventDefault();
+
+        await shell.openExternal(url);
     }
 
+    // This method will be called when Electron has finished
+    // initialization and is ready to create browser windows.
+    // Some APIs can only be used after this event occurs.
     private static async onReady() {
-        // This method will be called when Electron has finished
-        // initialization and is ready to create browser windows.
-        // Some APIs can only be used after this event occurs.
-        if (rendererAppName) {
-            App.initMainWindow();
-            await App.loadMainWindow();
-        }
+        if (!rendererAppName) return;
+        App.initMainWindow();
+        await App.loadMainWindow();
     }
 
-    private static onActivate() {
-        // On macOS, it's common to re-create a window in the app when the
-        // dock icon is clicked and there are no other windows open.
-        if (App.mainWindow === null) {
-            App.onReady();
-        }
+    // On macOS, it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    private static async onActivate() {
+        if (App.mainWindow !== null) return;
+        await App.onReady();
     }
 
     private static initMainWindow() {
         const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
-        const width = Math.min(1280, workAreaSize.width || 1280);
-        const height = Math.min(720, workAreaSize.height || 720);
 
         // Create the browser window.
         App.mainWindow = new BrowserWindow({
-            width: width,
-            height: height,
+            width: Math.min(1280, workAreaSize.width || 1280),
+            height: Math.min(720, workAreaSize.height || 720),
             show: false,
             webPreferences: {
                 contextIsolation: true,
@@ -83,10 +79,11 @@ export default class App {
         );
 
         // Emitted when the window is closed.
+        //
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
         App.mainWindow.on('closed', () => {
-            // Dereference the window object, usually you would store windows
-            // in an array if your app supports multi windows, this is the time
-            // when you should delete the corresponding element.
             App.mainWindow = null;
         });
     }

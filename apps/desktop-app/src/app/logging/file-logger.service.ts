@@ -1,9 +1,9 @@
-import { FileHandlingService } from '../file-handling/file-handling.service';
+import FileHandlingService from '../file-handling/file-handling.service';
 
 const logFilesFolder = 'logs';
 const latestLogFilePath = `${logFilesFolder}/latest.txt`;
 
-export class FileLoggerService {
+export default class FileLoggerService {
     private static logs: string[] = [];
 
     private static initialized = false;

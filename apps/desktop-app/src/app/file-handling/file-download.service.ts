@@ -1,9 +1,9 @@
-import { ConfigService } from '../config/config.service';
-import { HttpClientService } from '../http/http-client.service';
-import { LoggerService } from '../logging/logger.service';
-import { FileHandlingService } from './file-handling.service';
+import ConfigService from '../config/config.service';
+import HttpClientService from '../http/http-client.service';
+import LoggerService from '../logging/logger.service';
+import FileHandlingService from './file-handling.service';
 
-export class FileDownloadService {
+export default class FileDownloadService {
     private static readonly logger = new LoggerService(this.name);
 
     public static async downloadFile() {

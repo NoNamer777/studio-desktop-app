@@ -1,4 +1,4 @@
-export class ConsoleLoggerService {
+export default class ConsoleLoggerService {
     public static log(...args: unknown[]) {
         console.log(...args);
     }

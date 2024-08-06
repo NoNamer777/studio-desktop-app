@@ -1,7 +1,7 @@
-import { ConsoleLoggerService } from './console-logger.service';
-import { FileLoggerService } from './file-logger.service';
+import ConsoleLoggerService from './console-logger.service';
+import FileLoggerService from './file-logger.service';
 
-export class LoggerService {
+export default class LoggerService {
     private readonly context: string;
 
     constructor(context: string) {

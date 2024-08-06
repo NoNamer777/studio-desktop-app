@@ -1,6 +1,6 @@
-import { LoggerService } from '../logging/logger.service';
+import LoggerService from '../logging/logger.service';
 
-export class HttpClientService {
+export default class HttpClientService {
     private static readonly logger = new LoggerService(this.name);
 
     public static async getText(url: string) {

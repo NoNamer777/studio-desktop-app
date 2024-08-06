@@ -1,8 +1,8 @@
 import * as fs from 'node:fs';
-import { ConfigService } from '../config/config.service';
-import { LoggerService } from '../logging/logger.service';
+import ConfigService from '../config/config.service';
+import LoggerService from '../logging/logger.service';
 
-export class FileHandlingService {
+export default class FileHandlingService {
     private static readonly logger = new LoggerService(FileHandlingService.name);
 
     public static async initialize() {

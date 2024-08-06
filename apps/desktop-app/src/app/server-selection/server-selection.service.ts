@@ -1,11 +1,11 @@
 import { ServerConfig } from '@woodwing/studio-desktop-app/data';
-import { ConfigService } from '../config/config.service';
-import { FileHandlingService } from '../file-handling/file-handling.service';
-import { HttpClientService } from '../http/http-client.service';
-import { LoggerService } from '../logging/logger.service';
+import ConfigService from '../config/config.service';
+import FileHandlingService from '../file-handling/file-handling.service';
+import HttpClientService from '../http/http-client.service';
+import LoggerService from '../logging/logger.service';
 import { ServerConfigSchema } from '../validation/server-config';
 
-export class ServerSelectionService {
+export default class ServerSelectionService {
     private static readonly loggerService = new LoggerService(this.name);
 
     public static async initialize() {

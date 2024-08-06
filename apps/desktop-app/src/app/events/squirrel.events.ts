@@ -2,6 +2,7 @@ import { spawn } from 'child_process';
 import { app } from 'electron';
 import { basename, join, resolve } from 'path';
 import { environment } from '../../environments/environment';
+import { isRunningOnWindows } from '../utils/platform';
 
 /**
  * This module is responsible on handling all the setup events that is submitted by squirrel.
@@ -17,21 +18,19 @@ export default class SquirrelEvents {
         join(SquirrelEvents.appRootFolder, 'app-' + environment.version, basename(process.execPath))
     );
 
-    static handleEvents() {
-        if (process.argv.length === 1 || process.platform !== 'win32') {
-            return false;
-        }
+    public static handleEvents() {
+        if (process.argv.length === 1 || !isRunningOnWindows()) return false;
 
         switch (process.argv[1]) {
             case '--squirrel-install':
             case '--squirrel-updated':
                 // Install desktop and start menu shortcuts
-                SquirrelEvents.update(['--createShortcut', SquirrelEvents.exeName]);
+                SquirrelEvents.update('--createShortcut', SquirrelEvents.exeName);
                 return true;
 
             case '--squirrel-uninstall':
                 // Remove desktop and start menu shortcuts
-                SquirrelEvents.update(['--removeShortcut', SquirrelEvents.exeName]);
+                SquirrelEvents.update('--removeShortcut', SquirrelEvents.exeName);
                 return true;
 
             case '--squirrel-obsolete':
@@ -43,15 +42,12 @@ export default class SquirrelEvents {
                 SquirrelEvents.isAppFirstRun = true;
                 return false;
         }
-
         return false;
     }
 
-    static isFirstRun(): boolean {
-        return SquirrelEvents.isAppFirstRun;
-    }
+    public static isFirstRun = () => SquirrelEvents.isAppFirstRun;
 
-    private static update(args: Array<string>) {
+    private static update(...args: string[]) {
         try {
             spawn(SquirrelEvents.updateExe, args, { detached: true }).on('close', () =>
                 setTimeout(() => app.quit(), 1000)

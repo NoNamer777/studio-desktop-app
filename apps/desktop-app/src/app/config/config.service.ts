@@ -1,8 +1,8 @@
-import { FileHandlingService } from '../file-handling/file-handling.service';
-import { LoggerService } from '../logging/logger.service';
+import FileHandlingService from '../file-handling/file-handling.service';
+import LoggerService from '../logging/logger.service';
 import { defaultConfig, DesktopAppConfig, DesktopAppConfigSchema } from './models';
 
-export class ConfigService {
+export default class ConfigService {
     private static readonly logger = new LoggerService(this.name);
 
     private static config: DesktopAppConfig = defaultConfig;
