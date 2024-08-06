@@ -54,7 +54,7 @@ jobs:
               run: npx nx make -c windows
 
             - name: Upload installers
-              uses: @actions/upload-artifact@v4
+              uses: actions/upload-artifact@v4
               with:
                   name: windows-installer
                   path: |
@@ -82,7 +82,7 @@ jobs:
               run: npx nx make -c mac
 
             - name: Upload installers
-              uses: @actions/upload-artifact@v4
+              uses: actions/upload-artifact@v4
               with:
                   name: mac-installer
                   path: |
