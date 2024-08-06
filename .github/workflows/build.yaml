@@ -37,6 +37,13 @@ jobs:
         runs-on: ubuntu-latest
         needs: build
         steps:
+            - name: Install Wine
+              run: |
+                  sudo dpkg --add-architecture i386
+                  sudo add-apt-repository ppa:ubuntu-wine/ppa
+                  sudo apt-get update
+                  sudo apt-get install wine1.8
+
             - name: Checkout repository
               uses: actions/checkout@v4
 
