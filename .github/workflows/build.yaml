@@ -32,6 +32,15 @@ jobs:
             - name: Run tests
               run: npx nx run-many -t test
 
+            - name: Upload code bundles
+              uses: actions/upload-artifacts@v4
+              with:
+                  name: code-bundles
+                  retention-days: 1
+                  overwrite: true
+                  path: |
+                      dist/apps
+
     create-windows-installer:
         name: Create Windows installers
         runs-on: windows-latest
@@ -49,6 +58,13 @@ jobs:
 
             - name: Install dependencies
               run: npm ci
+
+            - name: Download code bundles
+              uses: actions/download-artifacts@v4
+              with:
+                  name: code-bundles
+                  path: |
+                      dist/apps
 
             - name: Create installers
               run: npx nx make -c windows
@@ -77,6 +93,13 @@ jobs:
 
             - name: Install dependencies
               run: npm ci
+
+            - name: Download code bundles
+              uses: actions/download-artifacts@v4
+              with:
+                  name: code-bundles
+                  path: |
+                      dist/apps
 
             - name: Create installers
               run: npx nx make -c mac
