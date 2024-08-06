@@ -1,5 +1,5 @@
 {
-    "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+    "$schema": "../../node_modules/nx-electron/src/validation/maker.schema.json",
     "appId": "com.woodwing.studio-desktop-app",
     "icon": "apps/desktop-app/src/assets/icons/woodwing.png",
     "artifactName": "Studio Desktop App ${version}.${ext}",
