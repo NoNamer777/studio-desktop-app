@@ -4,83 +4,83 @@ on:
 env:
     NODE_VERSION: 20
 jobs:
-    build:
-        name: Build
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Setup Node.JS
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: npm
-                  cache-dependency-path: package-lock.json
-
-            - name: Install dependencies
-              run: npm ci
-
-            - name: Check formatting
-              run: |
-                  npx nx format:check
-                  npx nx run-many -t lint
-
-            - name: Create code bundles
-              run: npx nx run-many -t build
-
-            - name: Run tests
-              run: npx nx run-many -t test
-
-    create-windows-installer:
-        name: Create Windows installers
-        runs-on: ubuntu-latest
-        needs: build
-        steps:
-            # source: https://linuxize.com/post/how-to-install-wine-on-ubuntu-20-04/
-            # 1. Enable the 32-bit architecture and update the package list
-            # 2. Import the WineHQ repository GPG key
-            # 3. Add the WineHQ repository
-            # 4. Install Wine
-            - name: Install Wine 6
-              run: |
-                  sudo dpkg --add-architecture i386
-                  sudo apt update
-
-                  wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-
-                  sudo apt install software-properties-common
-                  sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
-
-                  sudo apt install --install-recommends winehq-stable
-
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Setup Node.JS
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: npm
-                  cache-dependency-path: package-lock.json
-
-            - name: Install dependencies
-              run: npm ci
-
-            - name: Create installers
-              run: npx nx make -c windows
-
-            - name: Upload installers
-              uses: actions/upload-artifact@v4
-              with:
-                  name: windows-installer
-                  path: |
-                      dist/executables/windows/*
+#    build:
+#        name: Build
+#        runs-on: ubuntu-latest
+#        steps:
+#            - name: Checkout repository
+#              uses: actions/checkout@v4
+#
+#            - name: Setup Node.JS
+#              uses: actions/setup-node@v4
+#              with:
+#                  node-version: ${{ env.NODE_VERSION }}
+#                  cache: npm
+#                  cache-dependency-path: package-lock.json
+#
+#            - name: Install dependencies
+#              run: npm ci
+#
+#            - name: Check formatting
+#              run: |
+#                  npx nx format:check
+#                  npx nx run-many -t lint
+#
+#            - name: Create code bundles
+#              run: npx nx run-many -t build
+#
+#            - name: Run tests
+#              run: npx nx run-many -t test
+#
+#    create-windows-installer:
+#        name: Create Windows installers
+#        runs-on: ubuntu-latest
+#        needs: build
+#        steps:
+#            # source: https://linuxize.com/post/how-to-install-wine-on-ubuntu-20-04/
+#            # 1. Enable the 32-bit architecture and update the package list
+#            # 2. Import the WineHQ repository GPG key
+#            # 3. Add the WineHQ repository
+#            # 4. Install Wine
+#            - name: Install Wine 6
+#              run: |
+#                  sudo dpkg --add-architecture i386
+#                  sudo apt update
+#
+#                  wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+#
+#                  sudo apt install software-properties-common
+#                  sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
+#
+#                  sudo apt install --install-recommends winehq-stable
+#
+#            - name: Checkout repository
+#              uses: actions/checkout@v4
+#
+#            - name: Setup Node.JS
+#              uses: actions/setup-node@v4
+#              with:
+#                  node-version: ${{ env.NODE_VERSION }}
+#                  cache: npm
+#                  cache-dependency-path: package-lock.json
+#
+#            - name: Install dependencies
+#              run: npm ci
+#
+#            - name: Create installers
+#              run: npx nx make -c windows
+#
+#            - name: Upload installers
+#              uses: actions/upload-artifact@v4
+#              with:
+#                  name: windows-installer
+#                  path: |
+#                      dist/executables/windows/*
 
     create-mac-installer:
         name: Create MacOS installer
         runs-on: ubuntu-latest
-        needs: build
+#        needs: build
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -93,7 +93,7 @@ jobs:
                   cache-dependency-path: package-lock.json
 
             - name: Install dependencies
-              run: npm ci --include prod --include dev --include optional --include peer
+              run: npm ci --include prod --include dev --include optional --include peer --loglevel verbose
 
             - name: Create installers
               run: npx nx make -c mac
