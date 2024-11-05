@@ -5,16 +5,10 @@ on:
         types:
             - closed
 
-jobs:
-    log:
-        name: Log
-        runs-on: ubuntu-latest
+permissions:
+    contents: true
 
-        steps:
-            - name: Log
-              run: |
-                  echo ${{ github.event.pull_request.head.ref }}
-                  echo ${{ github.event.pull_request.base.ref }}
+jobs:
     create-tags:
         if: github.event.pull_request.merged == true && contains(github.event.pull_request.head.ref, 'release/')
         name: Create tags
