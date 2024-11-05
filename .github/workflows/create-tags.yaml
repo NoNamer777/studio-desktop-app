@@ -1,0 +1,30 @@
+name: Create tags
+
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - release/*
+
+jobs:
+    create-tags:
+        if: github.event.pull_request.merged == true
+        name: Create tags
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Extract version
+              id: extract_version
+              run: echo "VERSION=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_ENV
+
+            - name: Create tags
+              run: |
+                  git config --global user.email "github-actions@github.com"
+                  git config --global user.name "Github Actions"
+
+                  git tag ${{ env.VERSION }}
+                  git push origin ${{ env.VERSION }}
