@@ -42,6 +42,7 @@ jobs:
               uses: peter-evans/create-pull-request@v7
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
+                  base: main
                   branch: release/${{ github.event.inputs.version }}
                   title: "Release ${{ github.event.inputs.version }}"
                   body: "This PR bumps the version to ${{ github.event.inputs.version }}"
