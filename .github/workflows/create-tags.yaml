@@ -13,7 +13,8 @@ jobs:
         steps:
             - name: Log
               run: |
-                  echo ${{ github.event.pull_request }}
+                  echo ${{ github.event.pull_request.ref }}
+                  echo ${{ github.event.pull_request.base }}
     create-tags:
         if: github.event.pull_request.merged == true && contains(github.event.pull_request.ref, 'release/')
         name: Create tags
