@@ -41,8 +41,10 @@ jobs:
             - name: Create pull request
               uses: peter-evans/create-pull-request@v7
               with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  author: GitHub Actions <github-actions@github.com>
                   base: main
                   branch: release/${{ github.event.inputs.version }}
                   title: "Release ${{ github.event.inputs.version }}"
                   body: "This PR bumps the version to ${{ github.event.inputs.version }}"
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  sign-commits: true
