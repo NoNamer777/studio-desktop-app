@@ -34,7 +34,10 @@ jobs:
 
                   git checkout -b release/${{ github.event.inputs.version }}
 
-                  npm version ${{ github.event.inputs.version }} --no-git-tag-version
+                  npm version ${{ github.event.inputs.version }} --no-git-tag-version --no-commit-hook
+
+                  git add .
+                  git commit -m "Bump version to ${{ github.event.inputs.version }}"
 
                   git push origin release/${{ github.event.inputs.version }}
 
