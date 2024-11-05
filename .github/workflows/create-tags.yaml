@@ -12,7 +12,7 @@ jobs:
 
         steps:
             - name: Log
-              runs: |
+              run: |
                   echo ${{ github.event.pull_request }}
     create-tags:
         if: github.event.pull_request.merged == true && contains(github.event.pull_request.ref, 'release/')
