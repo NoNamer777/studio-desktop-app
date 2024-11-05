@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
         inputs:
             version:
-                description: 'Version to release'
+                description: Version to release
                 required: true
 
 permissions:
@@ -34,10 +34,7 @@ jobs:
 
                   git checkout -b release/${{ github.event.inputs.version }}
 
-                  npm version ${{ github.event.inputs.version }} --no-git-tag-version --no-commit-hook
-
-                  git add .
-                  git commit -m "Bump version to ${{ github.event.inputs.version }}"
+                  npm version ${{ github.event.inputs.version }} --no-git-tag-version
 
                   git push origin release/${{ github.event.inputs.version }}
 
@@ -47,7 +44,8 @@ jobs:
                   author: GitHub Actions <github-actions@github.com>
                   base: main
                   branch: release/${{ github.event.inputs.version }}
-                  title: "Release ${{ github.event.inputs.version }}"
-                  body: "This PR bumps the version to ${{ github.event.inputs.version }}"
+                  commit-message: Bump version to ${{ github.event.inputs.version }}
+                  title: Release ${{ github.event.inputs.version }}
+                  body: This PR bumps the version to ${{ github.event.inputs.version }}
                   token: ${{ secrets.GITHUB_TOKEN }}
                   sign-commits: true
