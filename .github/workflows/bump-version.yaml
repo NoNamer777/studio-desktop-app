@@ -1,0 +1,46 @@
+name: Bump version
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Version to release'
+                required: true
+
+jobs:
+    bump-version:
+        name: Bump version
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+                  cache-dependency-path: ./package-lock.json
+
+            - name: Bump version
+              run: |
+                  git config --global --user.name "GitHub actions"
+                  git config --global --user.email "github-actions@github.com"
+
+                  git checkout -b release/${{ github.event.inputs.version }}
+
+                  npm version ${{ github.event.inputs.version }}
+
+                  git commit -m "Bump version to ${{ github.event.inputs.version }}"
+                  git add .
+
+                  git push origin release/${{ github.event.inputs.version }}
+
+            - name: Create pull request
+              uses: peter-evans/create-pull-request@v7
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: release/${{ github.event.inputs.version }}
+                  title: "Release ${{ github.event.inputs.version }}"
+                  body: "This PR bumps the version to ${{ github.event.inputs.version }}"
