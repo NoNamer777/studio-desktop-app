@@ -4,12 +4,10 @@ on:
     pull_request:
         types:
             - closed
-        branches:
-            - release/*
 
 jobs:
     create-tags:
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true && contains(github.event.pull_request.ref, 'release/*')
         name: Create tags
         runs-on: ubuntu-latest
 
@@ -18,8 +16,9 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Extract version
-              id: extract_version
-              run: echo "VERSION=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_ENV
+              run: |
+                  version=$(grep '"version"' package.json | sed -E 's/.*"version": "(.*)".*/\1/')
+                  echo "VERSION=$version" >> $GITHUB_ENV
 
             - name: Create tags
               run: |
