@@ -7,7 +7,7 @@ on:
 
 jobs:
     create-tags:
-        if: github.event.pull_request.merged == true && contains(github.event.pull_request.ref, 'release/*')
+        if: github.event.pull_request.merged == true && contains(github.event.pull_request.ref, 'release/')
         name: Create tags
         runs-on: ubuntu-latest
 
