@@ -11,6 +11,6 @@
     "files": [],
     "include": [],
     "compilerOptions": {
-        "module": "CommonJS",
+        "module": "CommonJS"
     }
 }

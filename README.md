@@ -24,11 +24,11 @@ After that you can start the mock back-end applications by running the following
 
 ```bash
 npx nx serve studio-test
-````
+```
 
 ```bash
 npx nx serve studio-dev
-````
+```
 
 ```bash
 npx nx serve production
@@ -48,9 +48,10 @@ If you get an `ERR_CONNECTION_REFUSED` error message while serving the desktop-a
 
 ## How does it work?
 
-I've left some comments throughout the repository to give some more insight on why I did some things in a certain way, but you can find a global overview below. 
+I've left some comments throughout the repository to give some more insight on why I did some things in a certain way, but you can find a global overview below.
 
 At this point, you should have a running desktop-app. Choose your "server" to connect to and when able press the "Download" button. At that point a couple of things happen:
+
 1. **A signal is sent from the Angular app to the Electron app.**  
    The signal is sent through the contextBridge of Electron. The contextBridge defines an API of events which Electron can send or act upon when they are received. This API is preloaded into the Angular environment when the desktop-app is initialized. Typings for this API are defined in the `data` library. Important to note is that Electron is configured in sandbox mode with context isolation enabled. This disallows us from using external dependencies. Hence, why the data validation is done on the Electron side after the data has passed the contextBridge. TypeScript in the Angular application is made aware of this API by the `typings.d.ts` file. There, the `globalThis`/`Window` object is extended to include the API that we've defined and allowing us to use it throughout the Angular application.
 2. The Electron app fetches a file from the selected server.
@@ -59,12 +60,12 @@ At this point, you should have a running desktop-app. Choose your "server" to co
 "Where is my file?" you might ask. When selecting a server to connect, to your selection is saved in a configuration file, which is also stored in your file system on your machine. Upon initialization of the desktop-app this configuration is retrieved so that the previously selected server is pre-selected (when applicable).
 Files for the desktop-app are by default stored in the following locations, depending on your operating system:
 
-- Windows ```%USERPROFILE%\studio-desktop-app```
-- Mac ```~/studio-desktop-app```
+-   Windows `%USERPROFILE%\studio-desktop-app`
+-   Mac `~/studio-desktop-app`
 
 The configuration file will be stored in the root of the application files folder in JSON format.
 
-Within the application folder, you'll find a `logs/` folder where logs can be found which were used for debugging purposes. 
+Within the application folder, you'll find a `logs/` folder where logs can be found which were used for debugging purposes.
 
 For each available server, a sub-folder will be created. This means that in this prototype, files that are downloaded from the servers into a seperate folders on a per-server basis, which would result in the following directoty structure for this application:
 
@@ -106,4 +107,4 @@ This will create an executable for the platform on which the command is executed
 
 ## Testing
 
-A note on testing. Although a couple test files have been generated while generating components for the UI applications, none of them have actually been implemented to speed up the development time of the prototype. This should and **must** be done during the implementation in the actual product.  
+A note on testing. Although a couple test files have been generated while generating components for the UI applications, none of them have actually been implemented to speed up the development time of the prototype. This should and **must** be done during the implementation in the actual product.
