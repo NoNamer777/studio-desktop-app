@@ -83,7 +83,7 @@ jobs:
 
             - name: Attach installers to release
               if: env.VERSION != ''
-              uses: octokit/request-action@v2
+              uses: octokit/request-action@v2.x
               with:
                   route: POST /repos/{owner}/{repo}/releases/${{ env.VERSION }}/assets?name=windows-installer-${{ env.VERSION }}
                   owner: nonamer777
@@ -136,7 +136,7 @@ jobs:
 
             - name: Attach installers to release
               if: env.VERSION != ''
-              uses: octokit/request-action@v2
+              uses: octokit/request-action@v2.x
               with:
                   route: POST /repos/{owner}/{repo}/releases/${{ env.VERSION }}/assets?name=mac-installer-${{ env.VERSION }}
                   owner: nonamer777
