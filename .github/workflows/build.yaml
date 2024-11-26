@@ -45,8 +45,6 @@ jobs:
         name: Check version
         needs: build
         runs-on: ubuntu-latest
-        outputs:
-            version: ${{ steps.version.outputs.version }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -54,15 +52,14 @@ jobs:
             - name: Check for version
               id: version
               run: |
-                  VERSION=$(git tag --contains HEAD)
-                  echo "::set-output name=version::$VERSION"
+                  VERSION=$(git tag --contains)
+                  echo "VERSION=$VERSION" >> $GITHUB_ENV
+                  echo "The version tagged on the HEAD commit is '$VERSION'"
 
     create-windows-installer:
         name: Create Windows installers
         runs-on: windows-latest
         needs: check-version
-        env:
-            VERSION: ${{ needs.check-version.outputs.version }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
