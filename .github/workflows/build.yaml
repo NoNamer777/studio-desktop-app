@@ -11,11 +11,6 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
-            - name: Check for release
-              run: |
-                  VERSION=$(git tag --contains HEAD)
-                  echo "VERSION=$VERSION" >> $GITHUB_ENV
-
             - name: Setup Node.JS
               uses: actions/setup-node@v4
               with:
@@ -45,6 +40,11 @@ jobs:
                   overwrite: true
                   path: |
                       dist/apps
+
+            - name: Check for release
+              run: |
+                  VERSION=$(git tag --contains HEAD)
+                  echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     create-windows-installer:
         name: Create Windows installers
