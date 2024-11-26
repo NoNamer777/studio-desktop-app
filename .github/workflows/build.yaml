@@ -41,15 +41,28 @@ jobs:
                   path: |
                       dist/apps
 
-            - name: Check for release
+    check-version:
+        name: Check version
+        needs: build
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.version.outputs.version
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Check for version
+              id: version
               run: |
                   VERSION=$(git tag --contains HEAD)
-                  echo "VERSION=$VERSION" >> $GITHUB_ENV
+                  echo "::set-output name=version::$VERSION"
 
     create-windows-installer:
         name: Create Windows installers
         runs-on: windows-latest
-        needs: build
+        needs: check-version
+        env:
+            VERSION: ${{ needs.check-version.outputs.version }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -102,7 +115,9 @@ jobs:
     create-mac-installer:
         name: Create MacOS installer
         runs-on: macos-latest
-        needs: build
+        needs: check-version
+        env:
+            VERSION: ${{ needs.check-version.outputs.version }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
