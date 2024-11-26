@@ -1,6 +1,6 @@
 {
     "name": "@studio-desktop-app/source",
-    "version": "1.8.1",
+    "version": "1.8.2",
     "license": "MIT",
     "description": "Directly open files for editing with WoodWing Studio",
     "scripts": {
