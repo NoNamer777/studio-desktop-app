@@ -11,6 +11,11 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
+            - name: Check for release
+              run: |
+                  VERSION=$(git tag --contains HEAD)
+                  echo "VERSION=$VERSION" >> $GITHUB_ENV
+
             - name: Setup Node.JS
               uses: actions/setup-node@v4
               with:
@@ -76,6 +81,24 @@ jobs:
                   path: |
                       dist/executables/windows/*
 
+            - name: Attach installers to release
+              if: env.VERSION != ''
+              uses: octokit/request-action@v2
+              with:
+                  route: POST /repos/{owner}/{repo}/releases/${{ env.VERSION }}/assets?name=windows-installer-${{ env.VERSION }}
+                  owner: nonamer777
+                  repo: studio-desktop-app
+                  asset_name: windows-installer-${{ env.VERSION }}
+                  asset_content_type: application/octet-stream
+                  asset_path: |
+                      dist/executables/windows/*
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+                  name: windows-installer-${{env.VERSION}}
+                  path: |
+                      dist/executables/windows/*
+
     create-mac-installer:
         name: Create MacOS installer
         runs-on: macos-latest
@@ -109,4 +132,16 @@ jobs:
               with:
                   name: mac-installer
                   path: |
+                      dist/executables/mac/*
+
+            - name: Attach installers to release
+              if: env.VERSION != ''
+              uses: octokit/request-action@v2
+              with:
+                  route: POST /repos/{owner}/{repo}/releases/${{ env.VERSION }}/assets?name=mac-installer-${{ env.VERSION }}
+                  owner: nonamer777
+                  repo: studio-desktop-app
+                  asset_name: mac-installer-${{ env.VERSION }}
+                  asset_content_type: application/octet-stream
+                  asset_path: |
                       dist/executables/mac/*
