@@ -62,6 +62,8 @@ jobs:
         name: Create Windows installers
         runs-on: windows-latest
         needs: check-version
+        env:
+            VERSION: ${{ env.VERSION }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -116,7 +118,7 @@ jobs:
         runs-on: macos-latest
         needs: check-version
         env:
-            VERSION: ${{ needs.check-version.outputs.version }}
+            VERSION: ${{ env.VERSION }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
