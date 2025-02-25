@@ -27,7 +27,16 @@ jobs:
                   cache: npm
                   cache-dependency-path: ./package-lock.json
 
+            - name: Generate GitHub App token
+              id: generate-token
+              uses: tibdex/github-app-token@v2
+              with:
+                  app_id: ${{ secrets.GH_APP_ID }}
+                  private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
             - name: Bump version
+              env:
+                  GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
               run: |
                   git config --global user.name "GitHub actions"
                   git config --global user.email "github-actions@github.com"
@@ -47,5 +56,5 @@ jobs:
                   commit-message: Bump version to ${{ github.event.inputs.version }}
                   title: Release ${{ github.event.inputs.version }}
                   body: This PR bumps the version to ${{ github.event.inputs.version }}
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ steps.generate-token.outputs.token }}
                   sign-commits: true
