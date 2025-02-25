@@ -60,8 +60,8 @@ At this point, you should have a running desktop-app. Choose your "server" to co
 "Where is my file?" you might ask. When selecting a server to connect, to your selection is saved in a configuration file, which is also stored in your file system on your machine. Upon initialization of the desktop-app this configuration is retrieved so that the previously selected server is pre-selected (when applicable).
 Files for the desktop-app are by default stored in the following locations, depending on your operating system:
 
--   Windows `%USERPROFILE%\studio-desktop-app`
--   Mac `~/studio-desktop-app`
+- Windows `%USERPROFILE%\studio-desktop-app`
+- Mac `~/studio-desktop-app`
 
 The configuration file will be stored in the root of the application files folder in JSON format.
 
