@@ -7,7 +7,7 @@ on:
         workflows: [Create Tags]
 jobs:
     check-version:
-        if: ${{ github.event.workflow_run.conclussion == 'success' }}
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
         name: Check version
         runs-on: ubuntu-latest
         outputs:
