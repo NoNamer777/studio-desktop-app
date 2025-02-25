@@ -1,6 +1,9 @@
 name: Build
 on:
-    - push
+    pull_request:
+    push:
+        branches:
+            - main
 env:
     NODE_VERSION: 20
 jobs:
