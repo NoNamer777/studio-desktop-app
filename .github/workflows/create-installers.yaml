@@ -4,10 +4,10 @@ on:
     workflow_run:
         types:
             - 'completed'
-        workflows:
-            - 'Create Tags'
+        workflows: [Create Tags]
 jobs:
     check-version:
+        if: ${{ github.event.workflow_run.conclussion == 'success' }}
         name: Check version
         runs-on: ubuntu-latest
         outputs:
