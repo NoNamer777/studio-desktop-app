@@ -4,6 +4,11 @@ on:
     push:
         branches:
             - main
+    workflow_run:
+        workflows:
+            - Bump version
+        types:
+            - completed
 env:
     NODE_VERSION: 20
 jobs:
