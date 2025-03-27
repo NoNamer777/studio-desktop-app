@@ -4,7 +4,8 @@
     "license": "MIT",
     "description": "Directly open files for editing with WoodWing Studio",
     "scripts": {
-        "nx": "npx nx"
+        "nx": "npx nx",
+        "prepare-release-package": "ts-node tools/prepare-release-package.ts"
     },
     "author": "WoodWing",
     "private": true,
