@@ -14,10 +14,12 @@
             "LSUIElement": "1",
             "NSHighResolutionCapable": "true"
         },
-        "sign": null,
-        "notarize": false
+        "sign": false,
+        "notarize": false,
+        "identity": null
     },
     "win": {
+        "signAndEditExecutable": false,
         "target": "nsis"
     },
     "nsis": {
