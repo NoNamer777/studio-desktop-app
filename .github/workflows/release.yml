@@ -20,6 +20,8 @@ jobs:
 
             - name: Prepare Workspace
               uses: ./.github/actions/prepare-workspace
+              with:
+                  TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Extract version
               run: |
