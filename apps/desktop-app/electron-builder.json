@@ -12,7 +12,9 @@
             "CFBundlePackageType": "APPL",
             "LSUIElement": "1",
             "NSHighResolutionCapable": "true"
-        }
+        },
+        "sign": null,
+        "notarize": false
     },
     "win": {
         "target": "nsis"
