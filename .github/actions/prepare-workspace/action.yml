@@ -1,19 +1,19 @@
-name: Prepare Workspace
-description: Prepares and initializes the workspace
+name: 'Prepare Workspace'
+description: 'Prepares and initializes the workspace'
 runs:
-    using: composite
+    using: 'composite'
     steps:
-        - name: Setup Node.Js
-          uses: actions/setup-node@v4
+        - name: 'Setup Node.Js'
+          uses: 'actions/setup-node@v4'
           with:
-              node-version: 22
-              cache: npm
-              cache-dependency-path: package-lock.json
-              registry-url: https://npm.pkg.github.com
-              scope: @woodwing
+              node-version: '22'
+              cache: 'npm'
+              cache-dependency-path: 'package-lock.json'
+              registry-url: 'https://npm.pkg.github.com'
+              scope: '@woodwing'
 
-        - name: Install dependencies
-          shell: bash
+        - name: 'Install dependencies'
+          shell: 'bash'
           env:
-            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: npm ci
+              NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: 'npm ci'
