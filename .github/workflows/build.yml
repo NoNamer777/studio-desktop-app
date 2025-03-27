@@ -1,0 +1,19 @@
+name: Build
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Prepare Workspace
+              uses: ./.github/actions/prepare-workspace
+
+            - name: Check projects
+              uses: ./.github/actions/check-project

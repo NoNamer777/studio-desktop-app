@@ -1,4 +1,4 @@
-name: Create tags
+name: Release
 
 on:
     pull_request:
@@ -9,19 +9,31 @@ permissions:
     contents: write
 
 jobs:
-    create-tags:
+    release:
         if: github.event.pull_request.merged == true && contains(github.event.pull_request.head.ref, 'release/')
-        name: Create tags
+        name: Release
         runs-on: ubuntu-latest
 
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
+            - name: Prepare Workspace
+              uses: ./.github/actions/prepare-workspace
+
             - name: Extract version
               run: |
                   version=$(grep '"version"' package.json | sed -E 's/.*"version": "(.*)".*/\1/')
                   echo "VERSION=$version" >> $GITHUB_ENV
+
+            - name: Create installers
+              run: npx nx create-installers
+
+            - name: Create installer bundles
+              uses: ./.github/actions/create-installer-bundles
+
+            - name: Create release bundle
+              run: ts-node tools/prepare-release-package.ts
 
             - name: Create tags
               env:
@@ -38,3 +50,15 @@ jobs:
               with:
                   name: ${{ env.VERSION }}
                   tag_name: ${{ env.VERSION }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  files: |
+                      windows-installer.zip
+                      mac-x64-installer.zip
+                      mac-arm64-installer.zip
+
+            - name: Upload release bundle
+              uses: actions/upload-artifact@v4
+              with:
+                  name: release-bundle
+                  path: |
+                      dist/executables/_release/*

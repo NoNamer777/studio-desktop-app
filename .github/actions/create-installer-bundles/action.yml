@@ -1,0 +1,35 @@
+name: Create installer bundles
+description: Create bundles of the installers based on platform and architecture
+runs:
+    using: composite
+    steps:
+        - name: Create Windows installer archive
+          uses: vimtor/action-zip@v1
+          with:
+              dest: windows-installer.zip
+              files: |
+                  dist/executables/x64/latest.yml
+                  dist/executables/x64/*.exe
+                  dist/executables/x64/*.exe.blockmap
+
+        - name: Create Mac x64 installer archive
+          uses: vimtor/action-zip@v1
+          with:
+              dest: mac-x64-installer.zip
+              files: |
+                  dist/executables/x64/latest-mac.yml
+                  dist/executables/x64/*.dmg
+                  dist/executables/x64/*.dmg.blockmap
+                  dist/executables/x64/*.zip
+                  dist/executables/x64/*.zip.blockmap
+
+        - name: Create Mac arm64 installer archive
+          uses: vimtor/action-zip@v1
+          with:
+              dest: mac-arm64-installer.zip
+              files: |
+                  dist/executables/arm64/latest-mac.yml
+                  dist/executables/arm64/*.dmg
+                  dist/executables/arm64/*.dmg.blockmap
+                  dist/executables/x64/*.zip
+                  dist/executables/x64/*.zip.blockmap
