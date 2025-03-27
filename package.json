@@ -5,6 +5,7 @@
     "description": "Directly open files for editing with WoodWing Studio",
     "scripts": {
         "nx": "npx nx",
+        "clean": "ts-node tools/clean.ts",
         "prepare-release-package": "ts-node tools/prepare-release-package.ts"
     },
     "author": "WoodWing",
