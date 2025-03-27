@@ -7,12 +7,15 @@
     "copyright": "Copyright © 2024 ${author}",
     "mac": {
         "target": ["dmg", "zip"],
+        "artifactName": "${productName}-${arch}-${version}.${ext}",
         "category": "public.app-category.productivity",
         "extendInfo": {
             "CFBundlePackageType": "APPL",
             "LSUIElement": "1",
             "NSHighResolutionCapable": "true"
-        }
+        },
+        "sign": null,
+        "notarize": false
     },
     "win": {
         "target": "nsis"

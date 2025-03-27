@@ -36,6 +36,13 @@
                 "inspect": false
             }
         },
+        "create-installers": {
+            "executor": "nx:run-commands",
+            "options": {
+                "parallel": false,
+                "commands": ["npx nx make -c x64", "npx nx make"]
+            }
+        },
         "package": {
             "executor": "nx-electron:package",
             "dependsOn": [
@@ -79,17 +86,19 @@
                 "makerOptionsPath": "apps/desktop-app/electron-builder.json",
                 "name": "desktop-app",
                 "outputPath": "dist/executables",
-                "platform": ["windows", "mac"],
                 "sourcePath": "dist/apps"
             },
+            "defaultConfiguration": "arm64",
             "configurations": {
-                "windows": {
-                    "outputPath": "dist/executables/windows",
-                    "platform": "windows"
+                "x64": {
+                    "outputPath": "dist/executables/x64",
+                    "platform": ["windows", "mac"],
+                    "arch": "x64"
                 },
-                "mac": {
-                    "outputPath": "dist/executables/mac",
-                    "platform": "mac"
+                "arm64": {
+                    "outputPath": "dist/executables/arm64",
+                    "platform": "mac",
+                    "arch": "arm64"
                 }
             }
         },
